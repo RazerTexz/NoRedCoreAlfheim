@@ -80,12 +80,12 @@ public abstract class WorldMixin implements ILightingEngineProvider, ILightLevel
     }
 
     @Override
-    public LightingEngine alfheim$getLightingEngine() {
+    public final LightingEngine alfheim$getLightingEngine() {
         return alfheim$lightingEngine;
     }
 
     @Override
-    public int alfheim$getLight(final EnumSkyBlock lightType, final BlockPos blockPos) {
+    public final int alfheim$getLight(final EnumSkyBlock lightType, final BlockPos blockPos) {
         return getLightFor(lightType, blockPos);
     }
 }

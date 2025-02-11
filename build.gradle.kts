@@ -16,7 +16,7 @@ version = "1.5" // Versioning must follow Ragnarök versioning convention: https
 val id = project.name.lowercase()
 val plugin = "${project.group}.${id}.asm.${project.name}Plugin"
 
-val redCoreVersion = "1.8-1.12-" + "0.6"
+//val redCoreVersion = "1.8-1.12-" + "0.6"
 
 val mixinBooterVersion = "10.2"
 
@@ -59,7 +59,7 @@ repositories {
 }
 
 dependencies {
-    implementation("dev.redstudio", "Red-Core-MC", redCoreVersion)
+    //implementation("dev.redstudio", "Red-Core-MC", redCoreVersion)
 
     implementation(rfg.deobf("curse.maven:dynamic-lights-227874:2563244"))
 
@@ -88,8 +88,8 @@ buildConfig {
     buildConfigField("VERSION", project.version.toString())
 
     // Loggers
-    buildConfigField("org.apache.logging.log4j.Logger", "LOGGER", "org.apache.logging.log4j.LogManager.getLogger(NAME)")
-    buildConfigField("dev.redstudio.redcore.logging.RedLogger", "RED_LOGGER", """new RedLogger(NAME, "https://linkify.cz/AlfheimBugReport", LOGGER)""")
+    //buildConfigField("org.apache.logging.log4j.Logger", "LOGGER", "org.apache.logging.log4j.LogManager.getLogger(NAME)")
+    //buildConfigField("dev.redstudio.redcore.logging.RedLogger", "RED_LOGGER", """new RedLogger(NAME, "https://linkify.cz/AlfheimBugReport", LOGGER)""")
 }
 
 // Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
