@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static dev.redstudio.alfheim.ProjectConstants.ID;
-import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
+//import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
 import static dev.redstudio.alfheim.ProjectConstants.NAME;
 
 /// @author Luna Mira Lage (Desoroxxx)
@@ -23,36 +23,36 @@ import static dev.redstudio.alfheim.ProjectConstants.NAME;
 public final class AlfheimPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader, IMixinConfigHijacker {
 
     @Override
-    public String[] getASMTransformerClass() {
+    public final String[] getASMTransformerClass() {
         return null;
     }
 
     @Override
-    public String getModContainerClass() {
+    public final String getModContainerClass() {
         return null;
     }
 
     @Override
-    public String getSetupClass() {
+    public final String getSetupClass() {
         return null;
     }
 
     @Override
-    public void injectData(final Map<String, Object> data) {
+    public final void injectData(final Map<String, Object> data) {
     }
 
     @Override
-    public String getAccessTransformerClass() {
+    public final String getAccessTransformerClass() {
         return null;
     }
 
     @Override
-    public List<String> getMixinConfigs() {
+    public final List<String> getMixinConfigs() {
         return ImmutableList.of("mixins." + ID + ".json");
     }
 
     @Override
-    public boolean shouldMixinConfigQueue(final String mixinConfig) {
+    public final boolean shouldMixinConfigQueue(final String mixinConfig) {
         switch (mixinConfig) {
             case "mixins." + ID + ".json":
                 return !isCubicChunksInstalled();
@@ -64,28 +64,28 @@ public final class AlfheimPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader
     /// Checks if Cubic Chunks is installed.
     ///
     /// @return True if Cubic Chunks is installed, false otherwise.
-    public static boolean isCubicChunksInstalled() {
+    public static final boolean isCubicChunksInstalled() {
         try {
             Class.forName("io.github.opencubicchunks.cubicchunks.core.asm.CubicChunksCoreContainer");
         } catch (final ClassNotFoundException ignored) {
             return false;
         }
 
-        LOGGER.warn("Cubic Chunks was detected, it uses it's own lighting engine, {} will not load", NAME);
+        //LOGGER.warn("Cubic Chunks was detected, it uses it's own lighting engine, {} will not load", NAME);
         return true;
     }
 
     @Override
-    public Set<String> getHijackedMixinConfigs() {
+    public final Set<String> getHijackedMixinConfigs() {
         return Collections.singleton("mixins.phosphor.json");
     }
 
     @Override
-    public Set<String> getHijackedMixinConfigs(final Context context) {
+    public final Set<String> getHijackedMixinConfigs(final Context context) {
         if (!context.isModPresent("phosphor-lighting"))
             return Collections.emptySet();
 
-        LOGGER.warn("Phosphor/Hesperus was detected, {} replaces them entirely, will now attempt hijacking, you should remove Phosphor/Hesperus", NAME);
+        //LOGGER.warn("Phosphor/Hesperus was detected, {} replaces them entirely, will now attempt hijacking, you should remove Phosphor/Hesperus", NAME);
         return getHijackedMixinConfigs();
     }
 }

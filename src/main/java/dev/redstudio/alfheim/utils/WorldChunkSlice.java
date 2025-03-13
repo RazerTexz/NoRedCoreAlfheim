@@ -41,7 +41,7 @@ public class WorldChunkSlice {
     /// @param radius The radius around the coordinates to check
     ///
     /// @return true if all chunks are loaded, false otherwise
-    public boolean isLoaded(final int x, final int z, final int radius) {
+    public final boolean isLoaded(final int x, final int z, final int radius) {
         final int xStart = ((x - radius) >> 4) - this.x;
         final int zStart = ((z - radius) >> 4) - this.z;
         final int xEnd = ((x + radius) >> 4) - this.x;
@@ -61,7 +61,7 @@ public class WorldChunkSlice {
     /// @param z The Z-coordinate in the world
     ///
     /// @return The Chunk object that includes these coordinates
-    public Chunk getChunkFromWorldCoords(final int x, final int z) {
+    public final Chunk getChunkFromWorldCoords(final int x, final int z) {
         return getChunk((x >> 4) - this.x, (z >> 4) - this.z);
     }
 
@@ -71,7 +71,7 @@ public class WorldChunkSlice {
     /// @param z The Z-coordinate within the slice
     ///
     /// @return The Chunk object at these coordinates
-    private Chunk getChunk(final int x, final int z) {
+    private final Chunk getChunk(final int x, final int z) {
         return chunks[(x * DIAMETER) + z];
     }
 }

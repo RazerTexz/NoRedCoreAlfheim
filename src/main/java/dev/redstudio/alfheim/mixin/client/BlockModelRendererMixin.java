@@ -1,6 +1,6 @@
 package dev.redstudio.alfheim.mixin.client;
 
-import dev.redstudio.redcore.math.ClampUtil;
+import dev.redstudio.alfheim.utils.ClampUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.util.math.BlockPos;
@@ -26,7 +26,7 @@ public abstract class BlockModelRendererMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/block/state/IBlockState;getLightValue(Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/util/math/BlockPos;)I", remap = false),
             require = 0
     )
-    private int adjustGetLightValue(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos blockPos) {
+    private final int adjustGetLightValue(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos blockPos) {
         return ClampUtil.clampMinFirst(blockState.getLightValue(blockAccess, blockPos) - 1, 0, 15);
     }
 
@@ -38,7 +38,7 @@ public abstract class BlockModelRendererMixin {
             at = @At(value = "INVOKE", target = "Lnet/optifine/reflect/ReflectorForge;getLightValue(Lnet/minecraft/block/state/IBlockState;Lnet/minecraft/world/IBlockAccess;Lnet/minecraft/util/math/BlockPos;)I", remap = false),
             require = 0
     )
-    private int adjustGetLightValueOptiFine(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos blockPos) {
+    private final int adjustGetLightValueOptiFine(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos blockPos) {
         return ClampUtil.clampMinFirst(blockState.getLightValue(blockAccess, blockPos) - 1, 0, 15);
     }
 }

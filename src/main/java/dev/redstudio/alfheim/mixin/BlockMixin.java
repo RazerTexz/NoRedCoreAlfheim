@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import dev.redstudio.alfheim.api.ILightInfoProvider;
 import dev.redstudio.alfheim.api.ILightLevelProvider;
 import dev.redstudio.alfheim.api.ILitBlock;
-import dev.redstudio.redcore.math.ClampUtil;
+import dev.redstudio.alfheim.utils.ClampUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
@@ -65,7 +65,7 @@ public abstract class BlockMixin implements ILitBlock {
     }
 
     @Override
-    public int alfheim$getLightFor(final IBlockState blockState, final IBlockAccess blockAccess, final EnumSkyBlock lightType, final BlockPos blockPos) {
+    public final int alfheim$getLightFor(final IBlockState blockState, final IBlockAccess blockAccess, final EnumSkyBlock lightType, final BlockPos blockPos) {
         int lightLevel = ((ILightLevelProvider) blockAccess).alfheim$getLight(lightType, blockPos);
 
         if (lightLevel == 15)
@@ -98,7 +98,7 @@ public abstract class BlockMixin implements ILitBlock {
     }
 
     @Override
-    public int alfheim$getLightOpacity(final IBlockState blockState, final EnumFacing facing, final IBlockAccess blockAccess, final BlockPos blockPos) {
+    public final int alfheim$getLightOpacity(final IBlockState blockState, final EnumFacing facing, final IBlockAccess blockAccess, final BlockPos blockPos) {
         return 0;
     }
 }

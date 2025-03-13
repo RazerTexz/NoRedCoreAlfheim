@@ -14,7 +14,7 @@ public final class LightUtil {
 
     private static final boolean DYNAMIC_LIGHTS_LOADED = Loader.isModLoaded("dynamiclights");
 
-    public static int getLightValueForState(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos blockPos) {
+    public static final int getLightValueForState(final IBlockState blockState, final IBlockAccess blockAccess, final BlockPos blockPos) {
         if (DYNAMIC_LIGHTS_LOADED)
             return DynamicLights.getLightValue(blockState.getBlock(), blockState, blockAccess, blockPos); // Use the Dynamic Lights implementation
         else

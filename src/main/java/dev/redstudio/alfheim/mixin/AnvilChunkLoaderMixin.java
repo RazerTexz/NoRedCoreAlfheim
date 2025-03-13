@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
+//import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
 
 /// @author Luna Mira Lage (Desoroxxx)
 /// @author Angeline (@jellysquid)
@@ -58,14 +58,14 @@ public abstract class AnvilChunkLoaderMixin {
     }
 
     @Unique
-    private static void alfheim$readNeighborLightChecksFromNBT(final Chunk chunk, final NBTTagCompound compound) {
+    private static final void alfheim$readNeighborLightChecksFromNBT(final Chunk chunk, final NBTTagCompound compound) {
         if (!compound.hasKey(NEIGHBOR_LIGHT_CHECKS_KEY, 9))
             return;
 
         final NBTTagList tagList = compound.getTagList(NEIGHBOR_LIGHT_CHECKS_KEY, 2);
 
         if (tagList.tagCount() != Alfheim.FLAG_COUNT) {
-            LOGGER.warn("Chunk field {} had invalid length, ignoring it (chunk coordinates: {} {})", NEIGHBOR_LIGHT_CHECKS_KEY, chunk.x, chunk.z);
+            //LOGGER.warn("Chunk field {} had invalid length, ignoring it (chunk coordinates: {} {})", NEIGHBOR_LIGHT_CHECKS_KEY, chunk.x, chunk.z);
             return;
         }
 
@@ -78,7 +78,7 @@ public abstract class AnvilChunkLoaderMixin {
     }
 
     @Unique
-    private static void alfheim$writeNeighborLightChecksToNBT(final Chunk chunk, final NBTTagCompound compound) {
+    private static final void alfheim$writeNeighborLightChecksToNBT(final Chunk chunk, final NBTTagCompound compound) {
         final short[] neighborLightChecks = ((IChunkLightingData) chunk).alfheim$getNeighborLightChecks();
 
         if (neighborLightChecks == null)

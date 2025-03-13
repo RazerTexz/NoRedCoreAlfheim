@@ -2,7 +2,7 @@ package dev.redstudio.alfheim.lighting;
 
 import dev.redstudio.alfheim.api.IChunkLightingData;
 import dev.redstudio.alfheim.utils.DeduplicatedLongQueue;
-import dev.redstudio.redcore.math.ClampUtil;
+import dev.redstudio.alfheim.utils.ClampUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.profiler.Profiler;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
+//import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
 import static dev.redstudio.alfheim.ProjectConstants.NAME;
 
 /// @author Luna Mira Lage (Desoroxxx)
@@ -126,7 +126,7 @@ public final class LightingEngine {
     }
 
     /// Schedules a light update for the specified light type and position to be processed later by [#processLightUpdatesForType(EnumSkyBlock)]
-    public void scheduleLightUpdate(final EnumSkyBlock lightType, final BlockPos pos) {
+    public final void scheduleLightUpdate(final EnumSkyBlock lightType, final BlockPos pos) {
         lock();
 
         try {
@@ -137,12 +137,12 @@ public final class LightingEngine {
     }
 
     /// Schedules a light update for the specified light type and position to be processed later by [#processLightUpdates()]
-    private void scheduleLightUpdate(final EnumSkyBlock lightType, final long blockPos) {
+    private final void scheduleLightUpdate(final EnumSkyBlock lightType, final long blockPos) {
         lightUpdateQueues[lightType.ordinal()].enqueue(blockPos);
     }
 
     /// Calls [#processLightUpdatesForType(EnumSkyBlock)] for both light types
-    public void processLightUpdates() {
+    public final void processLightUpdates() {
         profiler.startSection("processSky");
 
         processLightUpdatesForType(EnumSkyBlock.SKY);
@@ -155,7 +155,7 @@ public final class LightingEngine {
     }
 
     /// Processes light updates of the given light type
-    public void processLightUpdatesForType(final EnumSkyBlock lightType) {
+    public final void processLightUpdatesForType(final EnumSkyBlock lightType) {
         // We only want to perform updates if we're being called from a tick event on the client.
         // There are many locations in the client code that will end up making calls to this method, usually from other threads.
         if (world.isRemote && !isCallingFromMainThread())
@@ -181,18 +181,18 @@ public final class LightingEngine {
     }
 
     @SideOnly(Side.CLIENT)
-    private boolean isCallingFromMainThread() {
+    private final boolean isCallingFromMainThread() {
         return Minecraft.getMinecraft().isCallingFromMinecraftThread();
     }
 
-    private void lock() {
+    private final void lock() {
         if (lock.tryLock())
             return;
 
         // If we cannot lock, something has gone wrong... Only one thread should ever acquire the lock.
         // Validate that we're on the right thread immediately, so we can gather information.
         // It is NEVER valid to call World methods from a thread other than the owning thread of the world instance.
-        final Thread current = Thread.currentThread();
+        /*final Thread current = Thread.currentThread();
 
         if (current != ownerThread) {
             final IllegalAccessException illegalAccessException = new IllegalAccessException(String.format("World is owned by '%s' (ID: %s)," + " but was accessed from thread '%s' (ID: %s)", ownerThread.getName(), ownerThread.getId(), current.getName(), current.getId()));
@@ -204,13 +204,13 @@ public final class LightingEngine {
                             "In a future release, this violation may result in a hard crash instead of the current soft warning.\n"
                     , illegalAccessException);
 
-        }
+        }*/
 
         // Wait for the lock to be released. This will likely introduce unwanted stalls, but will mitigate the issue.
         lock.lock();
     }
 
-    private void processLightUpdatesForTypeInner(final EnumSkyBlock lightType, final DeduplicatedLongQueue queue) {
+    private final void processLightUpdatesForTypeInner(final EnumSkyBlock lightType, final DeduplicatedLongQueue queue) {
         // Avoid nested calls
         if (updating)
             throw new IllegalStateException("Already processing updates!");
@@ -351,7 +351,7 @@ public final class LightingEngine {
 
     /// Gets data for neighbors of [#currentPos] and saves the results into neighbor state data members.
     /// If a neighbor can't be accessed/doesn't exist, the corresponding entry in neighborChunks is null - others are not reset
-    private void fetchNeighborDataFromCursor(final EnumSkyBlock lightType) {
+    private final void fetchNeighborDataFromCursor(final EnumSkyBlock lightType) {
         // Only update if curPos was changed
         if (isNeighborDataValid)
             return;
@@ -384,7 +384,7 @@ public final class LightingEngine {
         }
     }
 
-    private static byte getCachedLightFor(final Chunk chunk, final ExtendedBlockStorage storage, final BlockPos blockPos, final EnumSkyBlock type) {
+    private static final byte getCachedLightFor(final Chunk chunk, final ExtendedBlockStorage storage, final BlockPos blockPos, final EnumSkyBlock type) {
         final int x = blockPos.getX() & 15;
         final int y = blockPos.getY();
         final int z = blockPos.getZ() & 15;
@@ -397,7 +397,7 @@ public final class LightingEngine {
             return type == EnumSkyBlock.BLOCK ? (byte) storage.getBlockLight(x, y & 15, z) : (byte) type.defaultLightValue;
     }
 
-    private byte calculateNewLightFromCursor(final EnumSkyBlock lightType) {
+    private final byte calculateNewLightFromCursor(final EnumSkyBlock lightType) {
         final IBlockState blockState = currentChunk.getBlockState(currentPos);
 
         final byte luminosity = getCursorLuminosity(blockState, lightType);
@@ -411,7 +411,7 @@ public final class LightingEngine {
         return calculateNewLightFromCursor(luminosity, opacity, lightType);
     }
 
-    private byte calculateNewLightFromCursor(final byte luminosity, final byte opacity, final EnumSkyBlock lightType) {
+    private final byte calculateNewLightFromCursor(final byte luminosity, final byte opacity, final EnumSkyBlock lightType) {
         if (luminosity >= MAX_LIGHT_LEVEL - opacity)
             return luminosity;
 
@@ -429,7 +429,7 @@ public final class LightingEngine {
         return newLight;
     }
 
-    private void spreadLightFromCursor(final byte currentLight, final EnumSkyBlock lightType) {
+    private final void spreadLightFromCursor(final byte currentLight, final EnumSkyBlock lightType) {
         fetchNeighborDataFromCursor(lightType);
 
         for (final NeighborInfo neighborInfo : neighborInfos) {
@@ -447,36 +447,36 @@ public final class LightingEngine {
         }
     }
 
-    private void enqueueBrighteningFromCursor(final byte newLight, final EnumSkyBlock lightType) {
+    private final void enqueueBrighteningFromCursor(final byte newLight, final EnumSkyBlock lightType) {
         enqueueBrightening(currentPos, currentData, newLight, currentChunk, lightType);
     }
 
     /// Enqueues the blockPos for brightening and sets its light value to newLight
-    private void enqueueBrightening(final BlockPos blockPos, final long longPos, final byte newLight, final Chunk chunk, final EnumSkyBlock lightType) {
+    private final void enqueueBrightening(final BlockPos blockPos, final long longPos, final byte newLight, final Chunk chunk, final EnumSkyBlock lightType) {
         brighteningQueues[newLight].enqueue(longPos);
 
         chunk.setLightFor(lightType, blockPos, newLight);
     }
 
     /// Enqueues the blockPos for darkening and sets its light value to 0
-    private void enqueueDarkening(final BlockPos blockPos, final long longPos, final byte oldLight, final Chunk chunk, final EnumSkyBlock lightType) {
+    private final void enqueueDarkening(final BlockPos blockPos, final long longPos, final byte oldLight, final Chunk chunk, final EnumSkyBlock lightType) {
         darkeningQueues[oldLight].enqueue(longPos);
 
         chunk.setLightFor(lightType, blockPos, 0);
     }
 
-    private static MutableBlockPos decodeWorldCoord(final MutableBlockPos mutableBlockPos, final long longPos) {
+    private static final MutableBlockPos decodeWorldCoord(final MutableBlockPos mutableBlockPos, final long longPos) {
         return mutableBlockPos.setPos((int) (longPos >> S_X & M_X) - (1 << L_X - 1), (int) (longPos >> S_Y & M_Y), (int) (longPos >> S_Z & M_Z) - (1 << L_Z - 1));
     }
 
-    private static long encodeWorldCoord(final BlockPos pos) {
+    private static final long encodeWorldCoord(final BlockPos pos) {
         return ((long) pos.getY() << S_Y) | ((long) pos.getX() + (1 << L_X - 1) << S_X) | ((long) pos.getZ() + (1 << L_Z - 1) << S_Z);
     }
 
     /// Polls a new item from [#currentQueue] and fills in state data members
     ///
     /// @return If there was an item to poll
-    private boolean nextItem() {
+    private final boolean nextItem() {
         if (currentQueue.isEmpty()) {
             currentQueue = null;
 
@@ -498,12 +498,12 @@ public final class LightingEngine {
         return true;
     }
 
-    private byte getCursorCachedLight(final EnumSkyBlock lightType) {
+    private final byte getCursorCachedLight(final EnumSkyBlock lightType) {
         return ((IChunkLightingData) currentChunk).alfheim$getCachedLightFor(lightType, currentPos);
     }
 
     /// Calculates the luminosity for [#currentPos], taking into account the light type
-    private byte getCursorLuminosity(final IBlockState state, final EnumSkyBlock lightType) {
+    private final byte getCursorLuminosity(final IBlockState state, final EnumSkyBlock lightType) {
         if (lightType == EnumSkyBlock.SKY) {
             if (currentChunk.canSeeSky(currentPos))
                 return (byte) EnumSkyBlock.SKY.defaultLightValue;
@@ -514,11 +514,11 @@ public final class LightingEngine {
         return (byte) ClampUtil.clampMinFirst(LightUtil.getLightValueForState(state, world, currentPos), 0, MAX_LIGHT_LEVEL);
     }
 
-    private byte getPosOpacity(final BlockPos blockPos, final IBlockState blockState) {
+    private final byte getPosOpacity(final BlockPos blockPos, final IBlockState blockState) {
         return (byte) ClampUtil.clampMinFirst(blockState.getLightOpacity(world, blockPos), 1, MAX_LIGHT_LEVEL);
     }
 
-    private Chunk getChunk(final BlockPos blockPos) {
+    private final Chunk getChunk(final BlockPos blockPos) {
         return world.getChunkProvider().getLoadedChunk(blockPos.getX() >> 4, blockPos.getZ() >> 4);
     }
 

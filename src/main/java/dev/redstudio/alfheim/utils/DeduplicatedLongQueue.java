@@ -28,7 +28,7 @@ public final class DeduplicatedLongQueue {
     /// Adds a value to the queue.
     ///
     /// @param value The value to add to the queue
-    public void enqueue(final long value) {
+    public final void enqueue(final long value) {
         if (set.add(value))
             queue.enqueue(value);
     }
@@ -36,19 +36,19 @@ public final class DeduplicatedLongQueue {
     /// Removes and returns the first value in the queue.
     ///
     /// @return The first value in the queue
-    public long dequeue() {
+    public final long dequeue() {
         return queue.dequeueLong();
     }
 
     /// Returns whether the queue is empty.
     ///
     /// @return `true` if the queue is empty,`false` otherwise
-    public boolean isEmpty() {
+    public final boolean isEmpty() {
         return queue.isEmpty();
     }
 
     /// Creates a new deduplication set.
-    public void newDeduplicationSet() {
+    public final void newDeduplicationSet() {
         set = new LongOpenHashSet(queue.size());
     }
 }
