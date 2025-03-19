@@ -86,7 +86,7 @@ public abstract class ExtendedBlockStorageMixin {
 	/// @author Angeline (@jellysquid)
 	/// @author Luna Mira Lage (Desoroxxx)
 	@Unique
-	private boolean alfheim$checkLightArrayEqual(final NibbleArray storage, final byte targetValue) {
+	private final boolean alfheim$checkLightArrayEqual(final NibbleArray storage, final byte targetValue) {
 		if (storage == null) {
 			return true;
 		}
