@@ -16,7 +16,7 @@ version = "1.6-Dev-2" // Versioning must follow Ragnarök versioning convention:
 val id = project.name.lowercase()
 val plugin = "${project.group}.${id}.asm.${project.name}Plugin"
 
-val redCoreVersion = "1.8-1.12-" + "0.6"
+//val redCoreVersion = "1.8-1.12-" + "0.6"
 
 val mixinBooterVersion = "10.5"
 
@@ -88,7 +88,7 @@ buildConfig {
 	buildConfigField("VERSION", project.version.toString())
 
 	// Loggers
-	//buildConfigField("org.apache.logging.log4j.Logger", "LOGGER", "org.apache.logging.log4j.LogManager.getLogger(NAME)")
+	buildConfigField("org.apache.logging.log4j.Logger", "LOGGER", "org.apache.logging.log4j.LogManager.getLogger(NAME)")
 	//buildConfigField("dev.redstudio.redcore.logging.RedLogger", "RED_LOGGER", """new RedLogger(NAME, "https://linkify.cz/AlfheimBugReport", LOGGER)""")
 }
 

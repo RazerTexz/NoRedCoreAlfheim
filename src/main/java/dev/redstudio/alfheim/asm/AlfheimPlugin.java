@@ -21,36 +21,36 @@ import static dev.redstudio.alfheim.ProjectConstants.*;
 public final class AlfheimPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader, IMixinConfigHijacker {
 
 	@Override
-	public final String[] getASMTransformerClass() {
+	public String[] getASMTransformerClass() {
 		return null;
 	}
 
 	@Override
-	public final String getModContainerClass() {
+	public String getModContainerClass() {
 		return null;
 	}
 
 	@Override
-	public final String getSetupClass() {
+	public String getSetupClass() {
 		return null;
 	}
 
 	@Override
-	public final void injectData(final Map<String, Object> data) {
+	public void injectData(final Map<String, Object> data) {
 	}
 
 	@Override
-	public final String getAccessTransformerClass() {
+	public String getAccessTransformerClass() {
 		return null;
 	}
 
 	@Override
-	public final List<String> getMixinConfigs() {
+	public List<String> getMixinConfigs() {
 		return ImmutableList.of("mixins." + ID + ".json");
 	}
 
 	@Override
-	public final boolean shouldMixinConfigQueue(final String mixinConfig) {
+	public boolean shouldMixinConfigQueue(final String mixinConfig) {
 		switch (mixinConfig) {
 			case "mixins." + ID + ".json":
 				return !isCubicChunksInstalled();
@@ -62,7 +62,7 @@ public final class AlfheimPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader
 	/// Checks if Cubic Chunks is installed.
 	///
 	/// @return True if Cubic Chunks is installed, false otherwise.
-	public static final boolean isCubicChunksInstalled() {
+	public static boolean isCubicChunksInstalled() {
 		try {
 			Class.forName("io.github.opencubicchunks.cubicchunks.core.asm.CubicChunksCoreContainer");
 		} catch (final ClassNotFoundException ignored) {
@@ -74,12 +74,12 @@ public final class AlfheimPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader
 	}
 
 	@Override
-	public final Set<String> getHijackedMixinConfigs() {
+	public Set<String> getHijackedMixinConfigs() {
 		return Collections.singleton("mixins.phosphor.json");
 	}
 
 	@Override
-	public final Set<String> getHijackedMixinConfigs(final Context context) {
+	public Set<String> getHijackedMixinConfigs(final Context context) {
 		if (!context.isModPresent("phosphor-lighting")) {
 			return Collections.emptySet();
 		}

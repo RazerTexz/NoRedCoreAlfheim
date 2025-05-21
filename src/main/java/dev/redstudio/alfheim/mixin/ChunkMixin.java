@@ -286,7 +286,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final boolean alfheim$recheckGapsForColumn(final WorldChunkSlice slice, final int x, final int z) {
+	private boolean alfheim$recheckGapsForColumn(final WorldChunkSlice slice, final int x, final int z) {
 		final int i = x + z * 16;
 
 		if (updateSkylightColumns[i]) {
@@ -304,7 +304,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final int alfheim$recheckGapsGetLowestHeight(final WorldChunkSlice slice, final int x, final int z) {
+	private int alfheim$recheckGapsGetLowestHeight(final WorldChunkSlice slice, final int x, final int z) {
 		int max = Integer.MAX_VALUE;
 
 		for (final EnumFacing facing : ENUM_FACING_HORIZONTAL) {
@@ -319,7 +319,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final void alfheim$recheckGapsSkylightNeighborHeight(final WorldChunkSlice slice, final int x, final int z, final int height, final int max) {
+	private void alfheim$recheckGapsSkylightNeighborHeight(final WorldChunkSlice slice, final int x, final int z, final int height, final int max) {
 		alfheim$checkSkylightNeighborHeight(slice, x, z, max);
 
 		for (final EnumFacing facing : ENUM_FACING_HORIZONTAL)
@@ -327,7 +327,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final void alfheim$checkSkylightNeighborHeight(final WorldChunkSlice slice, final int x, final int z, final int maxValue) {
+	private void alfheim$checkSkylightNeighborHeight(final WorldChunkSlice slice, final int x, final int z, final int maxValue) {
 		if (slice.getChunkFromWorldCoords(x, z) == null) {
 			return;
 		}
@@ -342,7 +342,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final void alfheim$updateSkylightNeighborHeight(final WorldChunkSlice slice, final int x, final int z, final int startY, final int endY) {
+	private void alfheim$updateSkylightNeighborHeight(final WorldChunkSlice slice, final int x, final int z, final int startY, final int endY) {
 		if (endY < startY) {
 			return;
 		}
@@ -358,7 +358,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private static final void alfheim$mergeFlags(final EnumSkyBlock lightType, final Chunk inChunk, final Chunk outChunk, final EnumFacing dir, final EnumFacing.AxisDirection axisDirection) {
+	private static void alfheim$mergeFlags(final EnumSkyBlock lightType, final Chunk inChunk, final Chunk outChunk, final EnumFacing dir, final EnumFacing.AxisDirection axisDirection) {
 		final IChunkLightingData outChunkLightingData = (IChunkLightingData) outChunk;
 
 		if (outChunkLightingData.alfheim$getNeighborLightChecks() == null) {
@@ -375,7 +375,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final void alfheim$scheduleRelightChecksForBoundary(final Chunk chunk, Chunk nChunk, Chunk sChunk, final EnumSkyBlock lightType, final int xOffset, final int zOffset, final EnumFacing.AxisDirection axisDirection) {
+	private void alfheim$scheduleRelightChecksForBoundary(final Chunk chunk, Chunk nChunk, Chunk sChunk, final EnumSkyBlock lightType, final int xOffset, final int zOffset, final EnumFacing.AxisDirection axisDirection) {
 		final IChunkLightingData chunkLightingData = (IChunkLightingData) chunk;
 
 		if (chunkLightingData.alfheim$getNeighborLightChecks() == null) {
@@ -450,7 +450,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final void alfheim$initSkylightForSection(final ExtendedBlockStorage extendedBlockStorage) {
+	private void alfheim$initSkylightForSection(final ExtendedBlockStorage extendedBlockStorage) {
 		if (!world.provider.hasSkyLight()) {
 			return;
 		}
@@ -468,7 +468,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final void alfheim$scheduleRelightChecksForColumn(final EnumSkyBlock lightType, final int x, final int z, final int yMin, final int yMax) {
+	private void alfheim$scheduleRelightChecksForColumn(final EnumSkyBlock lightType, final int x, final int z, final int yMin, final int yMax) {
 		final BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
 
 		for (int y = yMin; y <= yMax; ++y)
@@ -476,17 +476,17 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private static final int alfheim$getFlagIndex(final EnumSkyBlock lightType, final int xOffset, final int zOffset, final EnumFacing.AxisDirection axisDirection, final EnumBoundaryFacing boundaryFacing) {
+	private static int alfheim$getFlagIndex(final EnumSkyBlock lightType, final int xOffset, final int zOffset, final EnumFacing.AxisDirection axisDirection, final EnumBoundaryFacing boundaryFacing) {
 		return (lightType == EnumSkyBlock.BLOCK ? 0 : 16) | ((xOffset + 1) << 2) | ((zOffset + 1) << 1) | (axisDirection.getOffset() + 1) | boundaryFacing.ordinal();
 	}
 
 	@Unique
-	private static final int alfheim$getFlagIndex(final EnumSkyBlock lightType, final EnumFacing facing, final EnumFacing.AxisDirection axisDirection, final EnumBoundaryFacing boundaryFacing) {
+	private static int alfheim$getFlagIndex(final EnumSkyBlock lightType, final EnumFacing facing, final EnumFacing.AxisDirection axisDirection, final EnumBoundaryFacing boundaryFacing) {
 		return alfheim$getFlagIndex(lightType, facing.getXOffset(), facing.getZOffset(), axisDirection, boundaryFacing);
 	}
 
 	@Unique
-	private static final void alfheim$initChunkLighting(final Chunk chunk, final World world) {
+	private static void alfheim$initChunkLighting(final Chunk chunk, final World world) {
 		final int xBase = chunk.x << 4;
 		final int zBase = chunk.z << 4;
 
@@ -528,7 +528,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Unique
-	private final void alfheim$relightSkylightColumn(final int x, final int z, final int height1, final int height2) {
+	private void alfheim$relightSkylightColumn(final int x, final int z, final int height1, final int height2) {
 		final int yMin = Math.min(height1, height2);
 		final int yMax = Math.max(height1, height2) - 1;
 
@@ -582,39 +582,39 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 	}
 
 	@Override
-	public final short[] alfheim$getNeighborLightChecks() {
+	public short[] alfheim$getNeighborLightChecks() {
 		return alfheim$neighborLightChecks;
 	}
 
 	@Override
-	public final void alfheim$setNeighborLightChecks(final short[] data) {
+	public void alfheim$setNeighborLightChecks(final short[] data) {
 		alfheim$neighborLightChecks = data;
 	}
 
 	@Override
-	public final boolean alfheim$isLightInitialized() {
+	public boolean alfheim$isLightInitialized() {
 		return alfheim$isLightInitialized;
 	}
 
 	@Override
-	public final void alfheim$setLightInitialized(final boolean lightInitialized) {
+	public void alfheim$setLightInitialized(final boolean lightInitialized) {
 		alfheim$isLightInitialized = lightInitialized;
 	}
 
 	@Override
-	public final void alfheim$setSkylightUpdatedPublic() {
+	public void alfheim$setSkylightUpdatedPublic() {
 		setSkylightUpdated();
 	}
 
 	@Override
-	public final void alfheim$initNeighborLightChecks() {
+	public void alfheim$initNeighborLightChecks() {
 		if (alfheim$getNeighborLightChecks() == null) {
 			alfheim$setNeighborLightChecks(new short[FLAG_COUNT]);
 		}
 	}
 
 	@Override
-	public final byte alfheim$getCachedLightFor(final EnumSkyBlock lightType, final BlockPos blockPos) {
+	public byte alfheim$getCachedLightFor(final EnumSkyBlock lightType, final BlockPos blockPos) {
 		final int x = blockPos.getX() & 15;
 		final int y = blockPos.getY();
 		final int z = blockPos.getZ() & 15;

@@ -24,7 +24,7 @@ public abstract class BlockStairsMixin extends BlockMixin implements ILitBlock {
 	public static PropertyEnum<BlockStairs.EnumHalf> HALF;
 
 	@Override
-	public final boolean alfheim$useNeighborBrightness(final IBlockState blockState, final EnumFacing facing, final IBlockAccess blockAccess, final BlockPos blockPos) {
+	public boolean alfheim$useNeighborBrightness(final IBlockState blockState, final EnumFacing facing, final IBlockAccess blockAccess, final BlockPos blockPos) {
 		if (facing.getAxis() != EnumFacing.Axis.Y) {
 			return false;
 		}

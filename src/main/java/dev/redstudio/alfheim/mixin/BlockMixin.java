@@ -67,7 +67,7 @@ public abstract class BlockMixin implements ILitBlock {
 	}
 
 	@Override
-	public final int alfheim$getLightFor(final IBlockState blockState, final IBlockAccess blockAccess, final EnumSkyBlock lightType, final BlockPos blockPos) {
+	public int alfheim$getLightFor(final IBlockState blockState, final IBlockAccess blockAccess, final EnumSkyBlock lightType, final BlockPos blockPos) {
 		int lightLevel = ((ILightLevelProvider) blockAccess).alfheim$getLight(lightType, blockPos);
 
 		if (lightLevel == 15) {
@@ -104,7 +104,7 @@ public abstract class BlockMixin implements ILitBlock {
 	}
 
 	@Override
-	public final int alfheim$getLightOpacity(final IBlockState blockState, final EnumFacing facing, final IBlockAccess blockAccess, final BlockPos blockPos) {
+	public int alfheim$getLightOpacity(final IBlockState blockState, final EnumFacing facing, final IBlockAccess blockAccess, final BlockPos blockPos) {
 		return 0;
 	}
 }

@@ -34,7 +34,7 @@ public abstract class ChunkCacheMixin implements ILightLevelProvider {
 	}
 
 	@Override
-	public final int alfheim$getLight(final EnumSkyBlock lightType, final BlockPos blockPos) {
+	public int alfheim$getLight(final EnumSkyBlock lightType, final BlockPos blockPos) {
 		return getLightFor(lightType, blockPos);
 	}
 }
