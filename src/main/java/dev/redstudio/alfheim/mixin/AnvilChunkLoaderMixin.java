@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
+//import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
 
 /// @author Luna Mira Lage (Desoroxxx)
 /// @author Angeline (@jellysquid)
@@ -65,7 +65,7 @@ public abstract class AnvilChunkLoaderMixin {
 		final NBTTagList tagList = compound.getTagList(NEIGHBOR_LIGHT_CHECKS_KEY, 2);
 
 		if (tagList.tagCount() != Alfheim.FLAG_COUNT) {
-			LOGGER.warn("Chunk field {} had invalid length, ignoring it (chunk coordinates: {} {})", NEIGHBOR_LIGHT_CHECKS_KEY, chunk.x, chunk.z);
+			//LOGGER.warn("Chunk field {} had invalid length, ignoring it (chunk coordinates: {} {})", NEIGHBOR_LIGHT_CHECKS_KEY, chunk.x, chunk.z);
 			return;
 		}
 

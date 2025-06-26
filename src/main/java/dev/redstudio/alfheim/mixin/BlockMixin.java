@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import dev.redstudio.alfheim.api.ILightInfoProvider;
 import dev.redstudio.alfheim.api.ILightLevelProvider;
 import dev.redstudio.alfheim.api.ILitBlock;
-import dev.redstudio.redcore.math.ClampUtil;
+import dev.redstudio.alfheim.utils.ClampUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;

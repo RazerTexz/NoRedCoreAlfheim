@@ -1,6 +1,6 @@
 package dev.redstudio.alfheim.mixin.client;
 
-import dev.redstudio.redcore.math.ClampUtil;
+import dev.redstudio.alfheim.utils.ClampUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.util.math.BlockPos;

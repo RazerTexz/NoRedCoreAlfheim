@@ -68,7 +68,7 @@ public final class AlfheimPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader
 			return false;
 		}
 
-		LOGGER.warn("Cubic Chunks was detected, it uses it's own lighting engine, {} will not load", NAME);
+		//LOGGER.warn("Cubic Chunks was detected, it uses it's own lighting engine, {} will not load", NAME);
 		return true;
 	}
 
@@ -83,7 +83,7 @@ public final class AlfheimPlugin implements IFMLLoadingPlugin, IEarlyMixinLoader
 			return Collections.emptySet();
 		}
 
-		LOGGER.warn("Phosphor/Hesperus was detected, {} replaces them entirely, will now attempt hijacking, you should remove Phosphor/Hesperus", NAME);
+		//LOGGER.warn("Phosphor/Hesperus was detected, {} replaces them entirely, will now attempt hijacking, you should remove Phosphor/Hesperus", NAME);
 		return getHijackedMixinConfigs();
 	}
 }

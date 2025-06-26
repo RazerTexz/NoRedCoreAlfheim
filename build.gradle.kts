@@ -59,7 +59,7 @@ repositories {
 }
 
 dependencies {
-	implementation("dev.redstudio:Red-Core-MC:$redCoreVersion")
+	//implementation("dev.redstudio:Red-Core-MC:$redCoreVersion")
 
 	compileOnly(rfg.deobf("curse.maven:dynamic-lights-227874:2563244"))
 
@@ -89,7 +89,7 @@ buildConfig {
 
 	// Loggers
 	buildConfigField("org.apache.logging.log4j.Logger", "LOGGER", "org.apache.logging.log4j.LogManager.getLogger(NAME)")
-	buildConfigField("dev.redstudio.redcore.logging.RedLogger", "RED_LOGGER", """new RedLogger(NAME, "https://linkify.cz/AlfheimBugReport", LOGGER)""")
+	//buildConfigField("dev.redstudio.redcore.logging.RedLogger", "RED_LOGGER", """new RedLogger(NAME, "https://linkify.cz/AlfheimBugReport", LOGGER)""")
 }
 
 // Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod

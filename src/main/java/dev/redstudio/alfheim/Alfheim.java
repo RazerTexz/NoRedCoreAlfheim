@@ -21,7 +21,7 @@ import static dev.redstudio.alfheim.ProjectConstants.VERSION;
 ///
 /// @author Luna Mira Lage (Desoroxxx)
 /// @since 1.0
-@Mod(modid = ID, version = VERSION, updateJSON = "https://forge.curseupdate.com/910715/" + ID, useMetadata = true, dependencies = "required-after:mixinbooter@[10.6,);required-after:redcore@[0.6,);")
+@Mod(modid = ID, version = VERSION, updateJSON = "https://forge.curseupdate.com/910715/" + ID, useMetadata = true, dependencies = "required-after:mixinbooter@[10.6,);")
 public final class Alfheim {
 
 	// TODO: Separate bugfixes and lighting engine

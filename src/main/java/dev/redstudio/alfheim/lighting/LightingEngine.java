@@ -2,7 +2,7 @@ package dev.redstudio.alfheim.lighting;
 
 import dev.redstudio.alfheim.api.IChunkLightingData;
 import dev.redstudio.alfheim.utils.DeduplicatedLongQueue;
-import dev.redstudio.redcore.math.ClampUtil;
+import dev.redstudio.alfheim.utils.ClampUtil;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.profiler.Profiler;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
+//import static dev.redstudio.alfheim.ProjectConstants.LOGGER;
 import static dev.redstudio.alfheim.ProjectConstants.NAME;
 
 /// @author Luna Mira Lage (Desoroxxx)
@@ -193,7 +193,7 @@ public final class LightingEngine {
 		// It is NEVER valid to call World methods from a thread other than the owning thread of the world instance.
 		final Thread current = Thread.currentThread();
 
-		if (current != ownerThread) {
+		/*if (current != ownerThread) {
 			final IllegalAccessException illegalAccessException = new IllegalAccessException(String.format("World is owned by '%s' (ID: %s)," + " but was accessed from thread '%s' (ID: %s)", ownerThread.getName(), ownerThread.getId(), current.getName(), current.getId()));
 
 			LOGGER.warn(
@@ -202,7 +202,7 @@ public final class LightingEngine {
 							NAME + " has done as best as it can to mitigate this violation, but it may negatively impact performance or introduce stalls.\n" +
 							"In a future release, this violation may result in a hard crash instead of the current soft warning.\n"
 					, illegalAccessException);
-		}
+		}*/
 
 		// Wait for the lock to be released. This will likely introduce unwanted stalls, but will mitigate the issue.
 		lock.lock();
