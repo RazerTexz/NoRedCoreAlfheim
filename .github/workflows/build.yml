@@ -1,18 +1,15 @@
 name: Build
 
 on:
-  push:
-    paths-ignore:
-      - ".github/**"
-      - "**.md"
   workflow_dispatch:
+  push:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup JDK 21
         uses: actions/setup-java@v5
@@ -24,10 +21,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Build
-        run: chmod +x gradlew && ./gradlew build
+        run: chmod +x gradlew && ./gradlew build --no-watch-fs
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: artifact
           path: build/libs
