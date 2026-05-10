@@ -4,10 +4,10 @@ import org.jetbrains.gradle.ext.settings
 import org.jetbrains.gradle.ext.Gradle
 
 plugins {
-	id("org.jetbrains.gradle.plugin.idea-ext") version "1.1.10"
-	id("com.gtnewhorizons.retrofuturagradle") version "1.4.5"
-	id("com.github.gmazzo.buildconfig") version "5.6.6"
-	id("io.freefair.lombok") version "8.14"
+	id("org.jetbrains.gradle.plugin.idea-ext") version "1.4.1"
+	id("com.gtnewhorizons.retrofuturagradle") version "2.0.2"
+	id("com.github.gmazzo.buildconfig") version "6.0.9"
+	id("io.freefair.lombok") version "9.2.0"
 }
 
 group = "dev.redstudio"
@@ -156,7 +156,7 @@ tasks {
 idea {
 	module {
 		inheritOutputDirs = true
-		excludeDirs.addAll(setOf(".github", ".gradle", ".idea", "build", "gradle", "run").map(::file))
+		excludeDirs.addAll(setOf(".github", ".gradle", ".idea", "build", "gradle", "run", "gradlew", "gradlew.bat").map(::file))
 	}
 
 	project {
