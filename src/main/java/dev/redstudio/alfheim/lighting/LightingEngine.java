@@ -282,13 +282,13 @@ public final class LightingEngine {
 					continue;
 
 				final IBlockState blockState = currentChunk.getBlockState(currentPos);
-				final byte luminosity = getCursorLuminosity(blockState, lightType);
+				final byte luminosity = getCursorLuminosity(blockState, lightType, currentChunk);
 				final byte opacity; // If luminosity is high enough, opacity is irrelevant
 
 				if (luminosity >= MAX_LIGHT_LEVEL - 1) {
 					opacity = 1;
 				} else {
-					opacity = getPosOpacity(currentPos, blockState);
+					opacity = getPosOpacity(currentPos, blockState, currentChunk);
 				}
 
 				// Only darken neighbors if we indeed became darker
@@ -311,7 +311,7 @@ public final class LightingEngine {
 
 						final MutableBlockPos neighborPos = neighborInfo.mutableBlockPos;
 
-						if (currentLight - getPosOpacity(neighborPos, neighborChunk.getBlockState(neighborPos)) >= neighborLight) /*Schedule neighbor for darkening if we possibly light it*/ {
+						if (currentLight - getPosOpacity(neighborPos, neighborChunk.getBlockState(neighborPos), neighborChunk) >= neighborLight) /*Schedule neighbor for darkening if we possibly light it*/ {
 							enqueueDarkening(neighborPos, neighborInfo.key, neighborLight, neighborChunk, lightType);
 						} else /*Only use for new light calculation if not*/ {
 							// If we can't darken the neighbor, no one else can (because of processing order) -> safe to let us be illuminated by it
@@ -402,13 +402,13 @@ public final class LightingEngine {
 	private byte calculateNewLightFromCursor(final EnumSkyBlock lightType) {
 		final IBlockState blockState = currentChunk.getBlockState(currentPos);
 
-		final byte luminosity = getCursorLuminosity(blockState, lightType);
+		final byte luminosity = getCursorLuminosity(blockState, lightType, currentChunk);
 		final byte opacity;
 
 		if (luminosity >= MAX_LIGHT_LEVEL - 1) {
 			opacity = 1;
 		} else {
-			opacity = getPosOpacity(currentPos, blockState);
+			opacity = getPosOpacity(currentPos, blockState, currentChunk);
 		}
 
 		return calculateNewLightFromCursor(luminosity, opacity, lightType);
@@ -443,7 +443,7 @@ public final class LightingEngine {
 
 			final BlockPos neighborBlockPos = neighborInfo.mutableBlockPos;
 
-			final byte newLight = (byte) (currentLight - getPosOpacity(neighborBlockPos, neighborChunk.getBlockState(neighborBlockPos)));
+			final byte newLight = (byte) (currentLight - getPosOpacity(neighborBlockPos, neighborChunk.getBlockState(neighborBlockPos), neighborChunk));
 
 			if (newLight > neighborInfo.light)
 				enqueueBrightening(neighborBlockPos, neighborInfo.key, newLight, neighborChunk, lightType);
@@ -506,15 +506,15 @@ public final class LightingEngine {
 	}
 
 	/// Calculates the luminosity for [#currentPos], taking into account the light type
-	private byte getCursorLuminosity(final IBlockState state, final EnumSkyBlock lightType) {
+	private byte getCursorLuminosity(final IBlockState state, final EnumSkyBlock lightType, final Chunk chunk) {
 		if (lightType == EnumSkyBlock.SKY)
             return currentChunk.canSeeSky(currentPos) ? (byte) EnumSkyBlock.SKY.defaultLightValue : 0;
 
-		return (byte) ClampUtil.clampMinFirst(LightUtil.getLightValueForState(state, world, currentPos), 0, MAX_LIGHT_LEVEL);
+		return (byte) ClampUtil.clampMinFirst(LightUtil.getLightValueForPos(state, world, currentPos, chunk), 0, MAX_LIGHT_LEVEL);
 	}
 
-	private byte getPosOpacity(final BlockPos blockPos, final IBlockState blockState) {
-		return (byte) ClampUtil.clampMinFirst(blockState.getLightOpacity(world, blockPos), 1, MAX_LIGHT_LEVEL);
+	private byte getPosOpacity(final BlockPos blockPos, final IBlockState blockState, final Chunk chunk) {
+		return (byte) ClampUtil.clampMinFirst(LightUtil.getLightOpacityForPos(blockState, world, blockPos, chunk), 1, MAX_LIGHT_LEVEL);
 	}
 
 	private Chunk getChunk(final BlockPos blockPos) {

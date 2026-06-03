@@ -499,7 +499,7 @@ public abstract class ChunkMixin implements IChunkLightingData, ILightingEngineP
 						for (int x = 0; x < 16; x++) {
 							mutableBlockPos.setPos(xBase + x, yBase + y, zBase + z);
 
-							if (LightUtil.getLightValueForState(storage.getData().get(x, y, z), world, mutableBlockPos) > 0) {
+							if (LightUtil.getLightValueForPos(storage.getData().get(x, y, z), world, mutableBlockPos, chunk) > 0) {
 								world.checkLightFor(EnumSkyBlock.BLOCK, mutableBlockPos);
 							}
 						}

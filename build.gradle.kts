@@ -62,6 +62,7 @@ dependencies {
 	implementation("dev.redstudio:Red-Core-MC:$redCoreVersion")
 
 	compileOnly(rfg.deobf("curse.maven:dynamic-lights-227874:2563244"))
+	compileOnly(rfg.deobf("curse.maven:fluidlogged-api-485654:3697254")) // Earliest support version (v1.7)
 
 	annotationProcessor("org.ow2.asm:asm-debug-all:5.2")
 	annotationProcessor("com.google.guava:guava:32.1.2-jre")
