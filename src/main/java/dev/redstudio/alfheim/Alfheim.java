@@ -30,6 +30,7 @@ public final class Alfheim {
 	public static final byte FLAG_COUNT = 32;
 
     public static final boolean IS_DYNAMIC_LIGHTS_LOADED = Loader.isModLoaded("dynamiclights");
+	public static final boolean IS_FLUIDLOGGED_API_LOADED = Loader.isModLoaded("fluidlogged_api");
 	public static final boolean IS_NOTHIRIUM_LOADED = Loader.isModLoaded("nothirium");
 	public static final boolean IS_VINTAGIUM_LOADED = Loader.isModLoaded("vintagium");
 	public static final boolean IS_CELERITAS_LOADED = Loader.isModLoaded("celeritas");
