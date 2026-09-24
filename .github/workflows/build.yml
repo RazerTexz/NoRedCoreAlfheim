@@ -8,7 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Set up JDK
+      - name: Set up Java
         uses: actions/setup-java@v6
         with:
           java-version: 25
@@ -22,7 +22,7 @@ jobs:
       - name: Build
         run: |
           chmod +x gradlew
-          ./gradlew build --no-watch-fs
+          ./gradlew assemble
 
       - name: Upload
         uses: actions/upload-artifact@v7
